@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'BackendTweet-App'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2997FC4AE04B4E2887FFFF8B0324128B }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_199C973466F946F289FFA3CBCFD96FB7 }}
           package: '*.jar'
