@@ -27,7 +27,7 @@ import tweetapp.service.UserService;
 @RestController
 @RequestMapping("/api/v1.0/tweets")
 @Log4j2
-@CrossOrigin(origins="https://frontend-tweetapp.azurewebsites.net")
+@CrossOrigin(origins="*")
 public class UserController {
 	
 	@Autowired
@@ -53,8 +53,11 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity<GeneralResponseDTO> userLogin(@RequestBody UserLoginDTO login){
 		try {
-			userService.userLogin(login);
-			return new ResponseEntity<>(new GeneralResponseDTO("Login Successful",false),HttpStatus.OK);
+			String loginUser=userService.userLogin(login);
+			if(loginUser.equals("Login Successful"))
+				return new ResponseEntity<>(new GeneralResponseDTO("Login Successful",false),HttpStatus.OK);
+			else
+				return new ResponseEntity<>(new GeneralResponseDTO("Login unsuccessful",true),HttpStatus.BAD_REQUEST);
 		}catch (Exception e) {
 			return new ResponseEntity<>(new GeneralResponseDTO(e.getMessage(),true),HttpStatus.BAD_REQUEST);
 			}

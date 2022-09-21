@@ -51,12 +51,20 @@ public class UserService {
 	}
 	
 	public String userLogin(UserLoginDTO login)throws CustomException {
-	
-		if(userRepo.findByUserNameAndPassword(login.getUserName(),login.getPassword()).isPresent())
-			return "Login Successful";
-		else
-			return "Login unsuccessful";
+		User u;
+		Optional<User> user = userRepo.findByUserName(login.getUserName());
+		if(user.isPresent()) {
+			u=user.get();
+			if(u.getPassword().equals(login.getPassword())) {
+				return "Login Successful";
+			}else {
+				return "Login unsuccessful";
+			}
+		}else {
+			log.error("No user found");
+			throw new CustomException("No user found");
 		}
+	}
 	
 	public List<User> searchUser(String userName) {
 		log.info("User found");

@@ -29,7 +29,7 @@ import tweetapp.service.TweetService;
 @RestController
 @RequestMapping("/api/v1.0/tweets")
 @Log4j2
-@CrossOrigin(origins="https://frontend-tweetapp.azurewebsites.net") 
+@CrossOrigin(origins="*") 
 public class TweetController {
 	
 	@Autowired

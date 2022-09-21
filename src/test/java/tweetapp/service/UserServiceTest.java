@@ -110,7 +110,7 @@ class UserServiceTest {
 		UserLoginDTO login=new UserLoginDTO();
 		login.setUserName("Anu123");
 		login.setPassword("xoxo");
-		Mockito.when(userRepo.findByUserNameAndPassword(login.getUserName(),login.getPassword())).thenReturn(details());
+		Mockito.when(userRepo.findByUserName(login.getUserName())).thenReturn(details());
 		assertEquals("Login Successful", userService.userLogin(login));
 	}
 	
@@ -123,12 +123,12 @@ class UserServiceTest {
 	}
 	
 	@Test
-	void userLoginUnsuccessfulTest()throws CustomException{
+	void userLoginUnsuccessfulTest(){
 		UserLoginDTO login=new UserLoginDTO();
 		login.setUserName("An");
 		login.setPassword("xo");
-		//Mockito.when(userRepo.findByUserNameAndPassword(login.getUserName(),login.getPassword())).thenReturn(Mockito.any());
-		assertEquals("Login unsuccessful", userService.userLogin(login));
+		Mockito.when(userRepo.findByUserName(login.getUserName())).thenThrow(CustomException.class);
+		assertThrows(CustomException.class, ()-> userService.userLogin(login));
 	}
 	
 	@Test
