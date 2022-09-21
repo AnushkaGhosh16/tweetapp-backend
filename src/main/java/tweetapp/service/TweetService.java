@@ -1,5 +1,7 @@
 package tweetapp.service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -41,7 +43,10 @@ public class TweetService {
 			LocalDateTime myDateObj = LocalDateTime.now();
 		    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		    String formattedDate = myDateObj.format(myFormatObj);
-		    tweet.setPostedAt(formattedDate);
+		    Instant time=Instant.now();
+		    time.plus(Duration.ofHours(5));
+		    time.plus(Duration.ofMinutes(30));
+		    tweet.setPostedAt(formattedDate.substring(0,9)+time);
 		    if(tweet.getTweetTag().length()==0) {
 				model.setTweet(tweet.getTweet());
 				model.setUserName(tweet.getUserName());
@@ -170,7 +175,10 @@ public class TweetService {
 			LocalDateTime myDateObj = LocalDateTime.now();
 		    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		    String formattedDate = myDateObj.format(myFormatObj);
-		    replyDTO.setRepliedAt(formattedDate);
+		    Instant time=Instant.now();
+		    time.plus(Duration.ofHours(5));
+		    time.plus(Duration.ofMinutes(30));
+		    replyDTO.setRepliedAt(formattedDate.substring(0,9)+time);
 		    reply.setTweetId(UUID.randomUUID().toString());
 			reply.setTweet(replyDTO.getTweet());
 			reply.setUserName(replyDTO.getUserName());
