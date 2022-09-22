@@ -1,13 +1,18 @@
 package tweetapp.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,12 +46,17 @@ public class TweetService {
 //			throw new CustomException("No user found");
 //		}else {
 			LocalDateTime myDateObj = LocalDateTime.now();
-		    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		    String formattedDate = myDateObj.format(myFormatObj);
-		    Instant time=Instant.now();
-		    time.plus(Duration.ofHours(5));
-		    time.plus(Duration.ofMinutes(30));
-		    tweet.setPostedAt(formattedDate.substring(0,9)+time);
+		    Instant s=Instant.now();
+		    long hours=5;
+		    long mins=30;
+		    Instant t2=s.plus(hours,ChronoUnit.HOURS).plus(mins,ChronoUnit.MINUTES);
+		    DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		    formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+		    Date myDate=Date.from(s);
+		    formatter.format(myDate);
+		    tweet.setPostedAt(formattedDate+" "+t2.toString().substring(11, 19));
 		    if(tweet.getTweetTag().length()==0) {
 				model.setTweet(tweet.getTweet());
 				model.setUserName(tweet.getUserName());
@@ -175,10 +185,15 @@ public class TweetService {
 			LocalDateTime myDateObj = LocalDateTime.now();
 		    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		    String formattedDate = myDateObj.format(myFormatObj);
-		    Instant time=Instant.now();
-		    time.plus(Duration.ofHours(5));
-		    time.plus(Duration.ofMinutes(30));
-		    replyDTO.setRepliedAt(formattedDate.substring(0,9)+time);
+		    Instant s=Instant.now();
+		    long hours=5;
+		    long mins=30;
+		    Instant t2=s.plus(hours,ChronoUnit.HOURS).plus(mins,ChronoUnit.MINUTES);
+		    DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		    formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+		    Date myDate=Date.from(s);
+		    formatter.format(myDate);
+		    replyDTO.setRepliedAt(formattedDate+" "+t2.toString().substring(11, 19));
 		    reply.setTweetId(UUID.randomUUID().toString());
 			reply.setTweet(replyDTO.getTweet());
 			reply.setUserName(replyDTO.getUserName());
