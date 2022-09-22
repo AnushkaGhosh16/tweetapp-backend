@@ -183,9 +183,9 @@ public class TweetService {
 			TweetModel reply=new TweetModel();
 			
 			LocalDateTime myDateObj = LocalDateTime.now();
-		    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		    String formattedDate = myDateObj.format(myFormatObj);
-		    Instant s=Instant.now();
+		    Instant s=Instant.now(); 
 		    long hours=5;
 		    long mins=30;
 		    Instant t2=s.plus(hours,ChronoUnit.HOURS).plus(mins,ChronoUnit.MINUTES);
